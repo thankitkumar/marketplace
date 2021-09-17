@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "123380959009",
+    "project_id": "destra-1553f",
+    "storage_bucket": "destra-1553f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:123380959009:android:b482ed8c4f6705b942a060",
+        "android_client_info": {
+          "package_name": "com.sevenColors.destra"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "123380959009-90b36k06lm5g2sb2d478oe73lrdgkad0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBILHB3HDUKXNiw4Ck_3M5m4Aeuyz7hYpc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "123380959009-90b36k06lm5g2sb2d478oe73lrdgkad0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
