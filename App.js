@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import { View, Button, Text, TextInput, Image } from 'react-native';
-
 import auth from '@react-native-firebase/auth';
-
-const successImageUri = 'https://cdn.pixabay.com/photo/2015/06/09/16/12/icon-803718_1280.png';
-
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -130,7 +126,6 @@ export default class App extends Component {
               flex: 1,
             }}
           >
-            <Image source={{ uri: successImageUri }} style={{ width: 100, height: 100, marginBottom: 25 }} />
             <Text style={{ fontSize: 25 }}>Signed In!</Text>
             <Text>{JSON.stringify(user)}</Text>
             <Button title="Sign Out" color="red" onPress={this.signOut} />
