@@ -133,7 +133,7 @@ export default class App extends Component {
               </Text>
             </TouchableOpacity>
           </Text>
-          <View style={{marginTop: 280}}>
+          <View style={{marginTop: '79%'}}>
             <TouchableOpacity
               onPress={() => {
                 this.signIn();
@@ -222,9 +222,10 @@ export default class App extends Component {
   }
 }
 // CSS for styling
+
 const styles = StyleSheet.create({
   header: {
-    width: 360,
+    width: '100%',
     height: 88,
     backgroundColor: '#F5A200',
   },
@@ -232,7 +233,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: 299,
     height: 24,
-    left: 32,
+    left: '16%',
     top: 32,
     fontFamily: ' Rubik',
     fontWeight: '500',
@@ -240,8 +241,8 @@ const styles = StyleSheet.create({
   },
   Body: {
     backgroundColor: '#222222',
-    width: 360,
-    height: 700,
+    width: '100%',
+    height: '100%',
   },
   EnterText: {
     fontFamily: 'Rubik',
@@ -249,7 +250,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#FFFFFF',
     width: 299,
-    left: 32,
+    left: '16%',
     top: 42,
   },
   DestraText: {
@@ -258,7 +259,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#FFFFFF',
     width: 299,
-    left: 32,
+    left: '16%',
     marginTop: 58,
   },
   InputText: {
@@ -267,7 +268,7 @@ const styles = StyleSheet.create({
     borderColor: '#F5A200',
     borderBottomWidth: 1,
     width: 252,
-    left: 32,
+    left: '16%',
     color: '#FFFFFF',
     fontFamily: 'Rubik',
     fontWeight: '400',
@@ -278,21 +279,21 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: 'Rubik',
     fontWeight: '400',
-    left: 32,
+    left: '16%',
   },
   login: {
     backgroundColor: '#F5A200',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 20,
-    width: 296,
+    width: '80%',
     height: 40,
-    left: 32,
+    left: '11%',
   },
   termsText: {
-    top: 270,
+    top: '35%',
     color: '#999999',
-    left: 29,
+    left: '12%',
     fontSize: 12,
     fontFamily: 'Rubik',
     fontWeight: '400',
