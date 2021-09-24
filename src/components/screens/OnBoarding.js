@@ -61,6 +61,7 @@ const OnboardingScreen = ({navigation}) => {
     const currentIndex = Math.round(contentOffsetX / width);
     setCurrentSlideIndex(currentIndex);
   };
+  // Function For goToNextSlide Button
 
   const goToNextSlide = () => {
     const nextSlideIndex = currentSlideIndex + 1;
@@ -70,7 +71,7 @@ const OnboardingScreen = ({navigation}) => {
       setCurrentSlideIndex(currentSlideIndex + 1);
     }
   };
-
+  // Function For Skip Button
   const skip = () => {
     const lastSlideIndex = slides.length - 1;
     const offset = lastSlideIndex * width;
