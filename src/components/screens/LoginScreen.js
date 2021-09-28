@@ -10,6 +10,7 @@ import {
 import auth from '@react-native-firebase/auth';
 import * as Animatable from 'react-native-animatable';
 import HomeScreen from '../screens/Home';
+import Traingle from '../../assets/images/traingle.svg';
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -46,14 +47,15 @@ export default class App extends Component {
     }
   }
   //Fuction for signIn with Number
+  //Which give OTP from firebase and send user mobile
   signIn = () => {
     const {phoneNumber} = this.state;
-    this.setState({message: 'Sending code ...'});
+    this.setState({message: 'Sending OTP ...'});
 
     auth()
       .signInWithPhoneNumber(phoneNumber)
       .then(confirmResult =>
-        this.setState({confirmResult, message: 'Code has been sent!'}),
+        this.setState({confirmResult, message: 'OTP has been sent!'}),
       )
       .catch(error =>
         this.setState({
@@ -62,6 +64,7 @@ export default class App extends Component {
       );
   };
   //Fuction for confirm otp
+  // Where User Can type manualy and auto read.
   confirmCode = () => {
     const {codeInput, confirmResult} = this.state;
 
@@ -79,9 +82,9 @@ export default class App extends Component {
     }
   };
   //check valid number or not?
-  handleValidNumber(val) {
+  handleValidNumber(phoneNumber) {
     let pattern = new RegExp(/^[0-9\b]+$/);
-    if (val.trim().length != 13 && !pattern.test(val)) {
+    if (phoneNumber.trim().length < 13 && !pattern.test(phoneNumber)) {
       this.setState({
         ...this.state,
         isValidNumber: false,
@@ -94,27 +97,32 @@ export default class App extends Component {
     }
   }
   //Fuction for take input number from user
+  //And return Number from user and set number in setState
   renderPhoneNumberInput() {
-    const {phoneNumber} = this.state;
     return (
-      <View>
+      <View style={styles.Body}>
         <View style={styles.header}>
           <Text style={styles.headerText}>Lets Get Started!</Text>
         </View>
+        <Traingle style={{left: '6%'}} />
         <View style={styles.Body}>
           <Text style={styles.EnterText}>Enter your phone number</Text>
           <Text style={styles.DestraText}>
             {'Destra will send an SMS message to verify\nyour phone number.'}
           </Text>
-          <View style={styles.rectangle} />
-          <TextInput
-            autoFocus
-            style={styles.InputText}
-            onChangeText={value => this.setState({phoneNumber: value})}
-            onEndEditing={e => this.handleValidNumber(e.nativeEvent.text)}
-            value={phoneNumber}
-            keyboardType="numeric"
-          />
+          <View style={{flexDirection: 'row', marginLeft: '16%'}}>
+            <Text style={[styles.font, {color: '#fff', top: 25}]}>+91</Text>
+            <TextInput
+              autoFocus
+              style={styles.InputText}
+              onChangeText={value =>
+                this.setState({phoneNumber: '+91' + value})
+              }
+              onEndEditing={e => this.handleValidNumber(e.nativeEvent.text)}
+              keyboardType="phone-pad"
+              maxLength={10}
+            />
+          </View>
           {this.state.isValidNumber ? null : (
             <Animatable.View animation="fadeInLeft" duration={500}>
               <Text style={styles.validationText}>
@@ -133,7 +141,7 @@ export default class App extends Component {
               </Text>
             </TouchableOpacity>
           </Text>
-          <View style={{marginTop: '79%'}}>
+          <View style={{marginTop: '75%', flex: 3}}>
             <TouchableOpacity
               onPress={() => {
                 this.signIn();
@@ -148,6 +156,7 @@ export default class App extends Component {
     );
   }
   // Fuction for error massage
+  // where if get any error by firebase then it give an error
   renderMessage() {
     const {message} = this.state;
 
@@ -158,7 +167,6 @@ export default class App extends Component {
     return (
       <Text
         style={{
-          marginTop: 12,
           padding: 8,
           backgroundColor: '#F5A200',
           color: '#fff',
@@ -168,6 +176,7 @@ export default class App extends Component {
     );
   }
   //Fuction for take input otp from user
+  // where its have text and textInput and user can type manually and auto.
   renderVerificationCodeInput() {
     const {codeInput} = this.state;
 
@@ -177,7 +186,7 @@ export default class App extends Component {
           <Text style={styles.EnterOtpText}>Enter OTP</Text>
           <TextInput
             autoFocus
-            style={styles.InputOtpText}
+            style={[styles.InputOtpText, styles.font]}
             onChangeText={value => this.setState({codeInput: value})}
             value={codeInput}
           />
@@ -205,17 +214,17 @@ export default class App extends Component {
       </View>
     );
   }
-
+  //render all logic in page .
   render() {
     const {user, confirmResult} = this.state;
     return (
       <View style={{flex: 1}}>
+        {/* first if user not login and also not give any OTP then show renderPhoneNumberInput fuction  */}
         {!user && !confirmResult && this.renderPhoneNumberInput()}
-
+        {/* then if user not login and also not give any OTP then showrenderMessage fuction  */}
         {this.renderMessage()}
-
+        {/* then take OTP then renderVerificationCodeInput fuction  */}
         {!user && confirmResult && this.renderVerificationCodeInput()}
-
         {user && <HomeScreen />}
       </View>
     );
@@ -224,16 +233,19 @@ export default class App extends Component {
 // CSS for styling
 
 const styles = StyleSheet.create({
+  font: {
+    color: '#FFFFFF',
+    fontFamily: 'Rubik',
+    fontWeight: '400',
+    fontSize: 20,
+  },
   header: {
     width: '100%',
     height: 88,
     backgroundColor: '#F5A200',
   },
   headerText: {
-    position: 'absolute',
-    width: 299,
-    height: 24,
-    left: '16%',
+    marginLeft: '16%',
     top: 32,
     fontFamily: ' Rubik',
     fontWeight: '500',
@@ -241,8 +253,7 @@ const styles = StyleSheet.create({
   },
   Body: {
     backgroundColor: '#222222',
-    width: '100%',
-    height: '100%',
+    flex: 1,
   },
   EnterText: {
     fontFamily: 'Rubik',
@@ -250,7 +261,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#FFFFFF',
     width: 299,
-    left: '16%',
+    marginLeft: '16%',
     top: 42,
   },
   DestraText: {
@@ -259,7 +270,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#FFFFFF',
     width: 299,
-    left: '16%',
+    marginLeft: '16%',
     marginTop: 58,
   },
   InputText: {
@@ -267,19 +278,17 @@ const styles = StyleSheet.create({
     marginTop: 15,
     borderColor: '#F5A200',
     borderBottomWidth: 1,
-    width: 252,
-    left: '16%',
+    width: 135,
     color: '#FFFFFF',
-    fontFamily: 'Rubik',
-    fontWeight: '400',
-    fontSize: 20,
+    marginLeft: 10,
   },
   validationText: {
     color: '#EB3959',
     fontSize: 14,
     fontFamily: 'Rubik',
     fontWeight: '400',
-    left: '16%',
+    marginLeft: '16%',
+    marginTop: '3%',
   },
   login: {
     backgroundColor: '#F5A200',
@@ -288,12 +297,13 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     width: '80%',
     height: 40,
-    left: '11%',
+    marginLeft: '11%',
   },
   termsText: {
-    top: '35%',
+    top: '47%',
     color: '#999999',
-    left: '12%',
+    left: '2%',
+    margin: '5%',
     fontSize: 12,
     fontFamily: 'Rubik',
     fontWeight: '400',
@@ -304,13 +314,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: 'Rubik',
     fontWeight: '400',
-  },
-  rectangle: {
-    position: 'absolute',
-    width: 20,
-    height: 10,
-    left: 22,
-    backgroundColor: '#F5A200',
+    marginLeft: 3,
   },
   OtpBody: {
     position: 'absolute',

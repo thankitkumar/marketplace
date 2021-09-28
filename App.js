@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import auth from '@react-native-firebase/auth';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import LoginScreen from './src/components/auth/LoginScreen';
+import LoginScreen from './src/components/screens/LoginScreen';
 import OnBoardingScreen from './src/components/screens/OnBoarding';
 import HomeScreen from './src/components/screens/Home';
 import TermsScreen from './src/components/screens/TermsScreen';
@@ -29,8 +29,10 @@ export class App extends Component {
         });
       }
     });
-    // Hiding splash after Mount screen
-    SplashScreen.hide();
+    // Hiding splash after Mount screen .
+    //SetTimeout for splashscreen stay atleast 3 sec
+
+    setTimeout(() => SplashScreen.hide(), 3000);
   }
   render() {
     // screen for stack & tabs

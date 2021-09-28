@@ -1,4 +1,4 @@
-package com.sevenColors.destra;
+package com.destra.buyer;
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
 import org.devio.rn.splashscreen.SplashScreen;

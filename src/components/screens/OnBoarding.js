@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import images from '../constant/images';
+import images from '../../utils/constant/images';
 import {
   SafeAreaView,
   Image,
@@ -15,6 +15,7 @@ import {
 const {onboarding1, onboarding2, onboarding3} = images;
 const {width, height} = Dimensions.get('window');
 const COLORS = {primary: '#282534', white: '#fff'};
+//content for slide which have id, image, title and subtitle. 
 const slides = [
   {
     id: '1',
@@ -27,23 +28,23 @@ const slides = [
     image: onboarding2,
     title: 'Skip Long queues Your Goals',
     subtitle:
-      'Just skip to stand in long queues\n when we are providing hassle free services',
+      'Just skip to stand in long queues\nwhen we are providing hassle free services',
   },
   {
     id: '3',
     image: onboarding3,
     title: 'Grow online',
     subtitle:
-      'We give you a platform\n where you can grow all together with your team',
+      'We give you a platform where \nyou can grow all together with your team',
   },
 ];
-
+//Fuction for slide image and title of each page of onbording screen
 const Slide = ({item}) => {
   return (
     <View style={{alignItems: 'center'}}>
       <Image
         source={item?.image}
-        style={{height: '75%', width, resizeMode: 'contain'}}
+        style={{height: '80%', width, resizeMode: 'stretch'}}
       />
       <View>
         <Text style={styles.title}>{item?.title}</Text>
@@ -183,8 +184,8 @@ const styles = StyleSheet.create({
   subtitle: {
     color: COLORS.white,
     fontSize: 13,
-    marginTop: 10,
-    maxWidth: '70%',
+    marginTop: 8,
+    maxWidth: '75%',
     textAlign: 'center',
     lineHeight: 23,
   },
@@ -201,11 +202,12 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   indicator: {
-    height: 2.5,
+    height: 10,
     width: 10,
-    backgroundColor: 'grey',
     marginHorizontal: 3,
-    borderRadius: 2,
+    borderRadius: 6,
+    borderColor: '#F5A200',
+    borderWidth: 1,
   },
   btn: {
     flex: 1,

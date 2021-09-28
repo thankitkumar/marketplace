@@ -35,12 +35,12 @@ android_library(
 
 android_build_config(
     name = "build_config",
-    package = "com.sevenColors.destra",
+    package = "com.destra.buyer",
 )
 
 android_resource(
     name = "res",
-    package = "com.sevenColors.destra",
+    package = "com.destra.buyer",
     res = "src/main/res",
 )
 

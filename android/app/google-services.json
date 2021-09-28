@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:123380959009:android:b482ed8c4f6705b942a060",
+        "mobilesdk_app_id": "1:123380959009:android:62444036199f5e2742a060",
         "android_client_info": {
-          "package_name": "com.sevenColors.destra"
+          "package_name": "com.destra.buyer"
         }
       },
       "oauth_client": [
