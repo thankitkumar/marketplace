@@ -114,7 +114,7 @@ export default class App extends Component {
             <Text style={[styles.font, {color: '#fff', top: 25}]}>+91</Text>
             <TextInput
               autoFocus
-              style={styles.InputText}
+              style={[styles.InputText, styles.font]}
               onChangeText={value =>
                 this.setState({phoneNumber: '+91' + value})
               }
