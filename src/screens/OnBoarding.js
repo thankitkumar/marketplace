@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import images from '../../utils/constant/images';
+import images from '../constant/images';
 import {
   SafeAreaView,
   Image,

@@ -6,11 +6,12 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
+  Modal,
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import * as Animatable from 'react-native-animatable';
 import HomeScreen from '../screens/Home';
-import Traingle from '../../assets/images/traingle.svg';
+import Traingle from '../assets/icon/arrow.svg';
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -22,6 +23,7 @@ export default class App extends Component {
       phoneNumber: '+91',
       confirmResult: null,
       isValidNumber: true,
+      show: false,
     };
   }
 
@@ -141,14 +143,35 @@ export default class App extends Component {
               </Text>
             </TouchableOpacity>
           </Text>
-          <View style={{marginTop: '75%', flex: 3}}>
+          <View style={{marginTop: '90%', flex: 3, marginBottom: 20}}>
             <TouchableOpacity
               onPress={() => {
                 this.signIn();
+                this.setState({show: true});
               }}>
               <View style={styles.login}>
                 <Text>LOGIN</Text>
               </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              style={[
+                styles.btn,
+                {
+                  backgroundColor: 'transparent',
+                },
+              ]}
+              onPress={() => {
+                this.props.navigation.navigate('HomeScreen');
+              }}>
+              <Text
+                style={{
+                  fontWeight: 'bold',
+                  fontSize: 15,
+                  color: '#F5A200',
+                }}>
+                SKIP
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -181,36 +204,96 @@ export default class App extends Component {
     const {codeInput} = this.state;
 
     return (
-      <View style={{backgroundColor: '#999999', height: '100%'}}>
-        <View style={styles.OtpBody}>
-          <Text style={styles.EnterOtpText}>Enter OTP</Text>
-          <TextInput
-            autoFocus
-            style={[styles.InputOtpText, styles.font]}
-            onChangeText={value => this.setState({codeInput: value})}
-            value={codeInput}
-          />
-          <View style={styles.Otpbtn}>
-            {/* OTP  Cancel button */}
-            <TouchableOpacity
-              onPress={() => {
-                this.props.navigation.goBack();
-              }}>
-              <View style={styles.OtpButton}>
-                <Text>CANCEL</Text>
-              </View>
-            </TouchableOpacity>
-            {/* OTP  Submit button */}
-            <TouchableOpacity
-              onPress={() => {
-                this.confirmCode();
-              }}>
-              <View style={styles.OtpButton}>
-                <Text>SUBMIT</Text>
-              </View>
-            </TouchableOpacity>
+      <View>
+        <View style={styles.Body}>
+          <View style={styles.header}>
+            <Text style={styles.headerText}>Lets Get Started!</Text>
+          </View>
+          <Traingle style={{left: '6%'}} />
+          <View style={styles.Body}>
+            <Text style={styles.EnterText}>Enter your phone number</Text>
+            <Text style={styles.DestraText}>
+              {'Destra will send an SMS message to verify\nyour phone number.'}
+            </Text>
+            <Text style={styles.termsText}>
+              By proceeding you agree to our
+              <TouchableOpacity>
+                <Text style={styles.termandcondiontext}>
+                  terms and conditions
+                </Text>
+              </TouchableOpacity>
+            </Text>
+            <View style={{marginTop: '90%', flex: 3, marginBottom: 20}}>
+              <TouchableOpacity>
+                <View style={styles.login}>
+                  <Text>LOGIN</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                style={[
+                  styles.btn,
+                  {
+                    backgroundColor: 'transparent',
+                  },
+                ]}>
+                <Text
+                  style={{
+                    fontWeight: 'bold',
+                    fontSize: 15,
+                    color: '#F5A200',
+                  }}>
+                  SKIP
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
+        <Modal
+          transparent={true}
+          visible={this.state.show}
+          animationType="fade">
+          <View style={{height: '100%', backgroundColor: '#000000aa'}}>
+            <View style={styles.OtpBody}>
+              <Text style={styles.EnterOtpText}>Enter OTP</Text>
+              <TextInput
+                autoFocus
+                style={[styles.InputOtpText, styles.font]}
+                onChangeText={value => this.setState({codeInput: value})}
+                value={codeInput}
+              />
+              <View style={styles.Otpbtn}>
+                {/* OTP  Cancel button */}
+                <TouchableOpacity
+                  onPress={() => {
+                    this.props.navigation.navigate('OnBoardingScreen');
+                    this.setState({show: false});
+                  }}>
+                  <View
+                    style={[
+                      styles.OtpButton,
+                      {
+                        backgroundColor: 'transparent',
+                        borderWidth: 1,
+                        borderColor: '#F5A200',
+                      },
+                    ]}>
+                    <Text style={{color: '#F5A200'}}>CANCEL</Text>
+                  </View>
+                </TouchableOpacity>
+                {/* OTP  Submit button */}
+                <TouchableOpacity
+                  onPress={() => {
+                    this.confirmCode();
+                  }}>
+                  <View style={styles.OtpButton}>
+                    <Text style={{color: '#fff'}}>SUBMIT</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </Modal>
       </View>
     );
   }
@@ -221,8 +304,6 @@ export default class App extends Component {
       <View style={{flex: 1}}>
         {/* first if user not login and also not give any OTP then show renderPhoneNumberInput fuction  */}
         {!user && !confirmResult && this.renderPhoneNumberInput()}
-        {/* then if user not login and also not give any OTP then showrenderMessage fuction  */}
-        {this.renderMessage()}
         {/* then take OTP then renderVerificationCodeInput fuction  */}
         {!user && confirmResult && this.renderVerificationCodeInput()}
         {user && <HomeScreen />}
@@ -294,16 +375,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5A200',
     alignItems: 'center',
     justifyContent: 'center',
+    textAlign: 'center',
     borderRadius: 20,
     width: '80%',
     height: 40,
     marginLeft: '11%',
   },
   termsText: {
-    top: '47%',
+    top: '50%',
     color: '#999999',
-    left: '2%',
-    margin: '5%',
+    textAlign: 'center',
     fontSize: 12,
     fontFamily: 'Rubik',
     fontWeight: '400',
@@ -358,5 +439,13 @@ const styles = StyleSheet.create({
     top: 52,
     flexDirection: 'row',
     justifyContent: 'flex-end',
+  },
+  btn: {
+    flex: 1,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: '#F5A200',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

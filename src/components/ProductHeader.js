@@ -5,13 +5,14 @@ import { View, TouchableOpacity, TextInput, StyleSheet, Text } from 'react-nativ
 import Card from '../assets/icon/cart.svg';
 import Arrow from '../assets/icon/arrow.svg';
 import { connect } from 'react-redux';
+import { withNavigation } from 'react-navigation'
 
-function ProductHeader({ navigation },props) {
+function ProductHeader(props) {
     return (
 
         <View style={[styles.header]}>
             <View style={{ flexDirection: 'row', margin: 18 }}>
-                <TouchableOpacity onPress={() => navigation.navigate('ProductScreen')}>
+                <TouchableOpacity onPress={() =>props.navigation.navigate('ProductScreen')}>
                     <Text style={{ marginTop: 10 }}>
                         <Arrow /></Text>
                 </TouchableOpacity>
@@ -19,7 +20,7 @@ function ProductHeader({ navigation },props) {
                     style={styles.input}
                     placeholderTextColor="black"
                     placeholder="Search in Brand A" />
-                <TouchableOpacity onPress={() => navigation.navigate('CartScreen')}>
+                <TouchableOpacity onPress={() => props.navigation.navigate('CartScreen')}>
                     <View style={{ padding: 5, marginLeft: 8 }}>
                         <View style={{ marginLeft: 12, position: 'absolute', height: 20, width: 20, borderRadius: 15, backgroundColor: 'red', alignItems: 'center', justifyContent: 'center', zIndex: 2000 }}>
                             <Text style={{ color: '#fff' }}>{props.CartItem.length}</Text>
